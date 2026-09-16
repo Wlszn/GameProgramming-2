@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour
         else if (other.CompareTag("DeathPlane"))
         {
             rb.position = startPosition;
-            // rb.linearVelocity = Vector3.zero;
-            // rb.angularVelocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
     }
 }
