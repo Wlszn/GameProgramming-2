@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Animations;
 
 
 // Sends the player's movement to the Animator every frame
@@ -25,15 +26,29 @@ public class PlayerAnimatorController : MonoBehaviour
         // Unity 6 calls the Rigidbody's velocity linearVelocity.
         animator.SetFloat("CharacterSpeed", rb.linearVelocity.magnitude);
 
-
         // Tell the Animator if we're on the ground (controls Falling)
-        animator.SetBool("IsGrounded", movement.IsGrounded);
+        bool grounded = movement.IsGrounded;
+        animator.SetBool("IsGrounded", grounded);
 
 
         // When Fire1 (left mouse button / left Ctrl) is released, roll
         if (Input.GetButtonUp("Fire1"))
         {
             animator.SetTrigger("doRoll");
+        }
+
+        if (grounded)
+        {
+            //Throw away a double jump request that was never used
+            animator.ResetTrigger("doDoubleJump");
+        }
+        else
+        {
+            //double jump space again in mid-air
+            if (Input.GetButtonDown("Jump") && movement.TryDoubleJump())
+            {
+                animator.SetTrigger("doDoubleJump");
+            }
         }
     }
 }
