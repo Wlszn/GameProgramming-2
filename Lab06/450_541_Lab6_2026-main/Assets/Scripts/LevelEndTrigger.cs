@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelEbdTrigger : MonoBehaviour
+public class LevelEndTrigger : MonoBehaviour
 {
     [SerializeField] private string endSceneName = "EndScene";
 
@@ -9,19 +9,10 @@ public class LevelEbdTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         
+            Debug.Log("Level completed!");
             ScoreManager.Instance.SaveFinalScore();
             SceneManager.LoadScene(endSceneName);
         
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
