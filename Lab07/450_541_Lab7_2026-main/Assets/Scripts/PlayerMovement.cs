@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsGrounded => isGrounded;
 
+    public float SpeedMultiplier { get; set; } = 1f;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -48,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         Vector3 cameraForward = Camera.main.transform.forward;
-        Vector3 cameraRight = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
 
         cameraForward.y = 0.0f;
         cameraRight.y = 0.0f;
@@ -102,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         // Calculate velocity based on current forward vector
-        Vector3 targetVelocity = moveDirection * moveSpeed;
+        Vector3 targetVelocity = moveDirection * moveSpeed * SpeedMultiplier;
 
         // Apply movement while preserving vertical velocity (gravity/jumping)
         rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
